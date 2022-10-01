@@ -1,0 +1,40 @@
+@import "../../styles/variables";
+
+.sidebar {
+  height: 100%;
+  &--choice-file {
+    margin-top: 60px;
+    cursor: pointer;
+    p {
+      font-weight: 500;
+      position: relative;
+      width: fit-content;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: $yellowLine;
+        transition: width 0.333s;
+      }
+  
+      &:hover::after {
+        width: 100%;
+      }
+    }
+    
+    
+  }
+}
+
+@keyframes Underline {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}

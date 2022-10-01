@@ -1,0 +1,68 @@
+@import "../../styles/variables";
+
+.files {
+  &--workspace {
+    margin-top: 55px;
+  }
+
+  &--dirpath {
+    display: flex;
+    flex-direction: row;
+    gap: 7px;
+    padding: 0 15px;
+    margin-bottom: 20px;
+    &--text,
+    &--delimiter {
+      font-size: 18px;
+      color: $textGray;
+    }
+  }
+
+  &-table {
+    table {
+      width: 100%;
+      thead {
+        padding: 18px 15px 7px 15px;
+        border-bottom: 1px solid $borderGray;
+        border-top: 1px solid $borderGray;
+        background-color: $componentsGray;
+
+        display: flex;
+        flex-direction: row;
+        th {
+          text-align: left;
+          font-weight: 500;
+        }
+        th:nth-child(1) {
+          flex-grow: 4;
+        }
+        th:nth-child(2) {
+          flex-grow: 3;
+        }
+        th:nth-child(3) {
+          flex-grow: 2;
+        }
+        th:nth-child(4) {
+          flex-grow: 1;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid $borderGray;
+        td {
+          padding: 10px 15px 10px 15px;
+          img {
+            width: 30px;
+            height: 30px;
+          }
+          p {
+            display: inline-block;
+            margin-left: 17px;
+          }
+        }
+      }
+    }
+  }
+}

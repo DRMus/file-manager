@@ -1,0 +1,15 @@
+.sidebar--header {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+
+  &--icon {
+    width: 45px;
+    height: 45px;
+  }
+
+  &--name {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,27 @@
+@import "../../styles/variables";
+
+.files {
+  &--content {
+    height: 100%;
+    &--table {
+      height: calc(100% - 95px);
+      width: 100%;
+      position: relative;
+    }
+    &--empty {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      .empty {
+        &--description {
+          color: $emptyGray;
+        }
+        &--upload-file {
+          padding: 8px 12px;
+          background-color: $emptyGray;
+        }
+      }
+    }
+  }
+}

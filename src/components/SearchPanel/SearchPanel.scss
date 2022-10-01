@@ -1,0 +1,26 @@
+@import "../../styles/variables";
+
+.search-panel {
+  height: 40px;
+  &--input {
+    height: 100%;
+    border-color: transparent !important;
+    border-radius: 5px !important;
+    background-color: $componentsGray !important;
+    input {
+      font-size: 14px;
+      background-color: $componentsGray !important;
+    }
+  }
+
+  &--icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+    svg {
+      fill: #c4c4c4;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
