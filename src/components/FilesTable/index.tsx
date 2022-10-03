@@ -1,11 +1,15 @@
 import React from "react";
 
-import FolderIcon from "../../img/svg/Folder.svg";
+import { IUploadedFile, IUploadedFilesFolder } from "../../utils/interfaces";
+import { TableItem } from "..";
 import "./FilesTable.scss";
 
-type Props = {};
+type Props = { filesObject: IUploadedFilesFolder | IUploadedFile | undefined };
 
-function FilesTable({}: Props) {
+
+// TODO: Сделать dirpath, доработать отображение файлов
+
+function FilesTable({filesObject}: Props) {
   return (
     <div className="files--workspace">
       <div className="files--dirpath">
@@ -16,19 +20,14 @@ function FilesTable({}: Props) {
       <div className="files-table">
         <table>
           <thead>
-            <th>Название</th>
-            <th>Автор</th>
-            <th>Дата создания</th>
-            <th>Размер</th>
-          </thead>
-          <tbody>
             <tr>
-              <td>
-                <img src={FolderIcon} alt="" />
-                <p>My Folder</p>
-              </td>
+              <th scope="col">Название</th>
+              <th scope="col">Автор</th>
+              <th scope="col">Дата создания</th>
+              <th scope="col">Размер</th>
             </tr>
-          </tbody>
+          </thead>
+          <TableItem filesObject={filesObject}/>
         </table>
       </div>
     </div>

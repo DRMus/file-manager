@@ -1,0 +1,11 @@
+@import "../../styles/variables";
+
+.file-icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+}
