@@ -1,2 +1,5 @@
 export {default as fileListToStructObject} from "./fileListToStructObject"
-export {default as fileOTobject} from "./fileToObject"
+export {default as fileTobject} from "./fileToObject"
+export {default as formatBytes} from "./formatBytes"
+export {default as convertUnixToDate} from "./convertUnixToDate"
+export {default as Context} from "./context"

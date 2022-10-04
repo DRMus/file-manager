@@ -1,9 +1,10 @@
 import { IUploadedFile } from "./interfaces";
 
-export default function fileToObject<IUploadedFile>(file: FileList) {
+export default function fileToObject(file: FileList) {
   return {
     name: file[0].name,
     type: "file",
-    info: file[0]
-  }
+    priority: 2,
+    info: file[0],
+  } as IUploadedFile;
 }

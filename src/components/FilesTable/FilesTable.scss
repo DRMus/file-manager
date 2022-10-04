@@ -2,24 +2,61 @@
 
 .files {
   &--workspace {
+    height: 100%;
     margin-top: 55px;
   }
 
   &--dirpath {
+    $self: &;
+
     display: flex;
     flex-direction: row;
     gap: 7px;
     padding: 0 15px;
     margin-bottom: 20px;
 
+    &--wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 7px;
+    }
+
     &--text,
     &--delimiter {
       font-size: 18px;
       color: $textGray;
     }
+
+    &--wrapper:last-child &--text {
+      color: black;
+      font-weight: 500;
+    }
+
+    &--wrapper:not(:last-child) {
+      #{$self}--text {
+        position: relative;
+        cursor: pointer;
+      }
+      #{$self}--text::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: $yellowLine;
+        transition: width 0.333s;
+      }
+
+      #{$self}--text:hover::after {
+        width: 100%;
+      }
+    }
   }
 
   &-table {
+    height: calc(100% - 59px);
+    overflow: auto;
     table {
       width: 100%;
       thead {
@@ -49,8 +86,10 @@
     }
 
     tbody {
+      
       tr {
         border-bottom: 1px solid $borderGray;
+        cursor: pointer;
         td {
           padding: 10px 15px 10px 15px;
           img {
@@ -61,6 +100,9 @@
             display: inline-block;
             margin-left: 17px;
           }
+        }
+        &:active {
+          background-color: $activeGray;
         }
       }
     }

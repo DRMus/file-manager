@@ -1,10 +1,12 @@
 import React from "react";
 
-import { SideBar, FileManager } from "../../components";
+import { SideBar } from "../../components";
+import { FileManager } from "../../containers";
 import "./Home.scss";
 
-const Home: React.FC = () => {
+// TODO: Сделать поиск, модальные окна для загрузки нового файла и создания файла на выгрузку
 
+const Home: React.FC = () => {
   return (
     <section className="main">
       <div className="main--content">

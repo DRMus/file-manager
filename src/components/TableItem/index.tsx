@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FileOutlined } from "@ant-design/icons";
 
 import FolderIcon from "../../img/svg/Folder.svg";
 import { IUploadedFile, IUploadedFilesFolder } from "../../utils/interfaces";
+import { Context, convertUnixToDate, formatBytes } from "../../utils";
 import "./TableItem.scss";
 
 type Props = { filesObject: IUploadedFilesFolder | IUploadedFile | undefined };
@@ -10,13 +11,14 @@ type Props = { filesObject: IUploadedFilesFolder | IUploadedFile | undefined };
 function TableItem({ filesObject }: Props) {
   const folderFilesObject = filesObject as IUploadedFilesFolder;
   const oneFileObject = filesObject as IUploadedFile;
+  const { openFile } = useContext(Context);
   return (
     <tbody>
       {filesObject ? (
         filesObject.type === "folder" ? (
           folderFilesObject.inner.map((item, key) => (
-            <tr key={key}>
-              <td>
+            <tr key={key} onClick={() => openFile(item)}>
+              <td className="table--row-header">
                 {item.type === "folder" ? (
                   <img src={FolderIcon} alt="" />
                 ) : (
@@ -25,18 +27,22 @@ function TableItem({ filesObject }: Props) {
                 <p>{item.name}</p>
               </td>
               <td>User</td>
-              {"info" in item ? <td>{item.info.lastModified}</td> : null}
-              {"info" in item ? <td>{item.info.size}</td> : null}
+              <td>
+                {"info" in item
+                  ? convertUnixToDate(item.info.lastModified)
+                  : "-"}
+              </td>
+              <td>{"info" in item ? formatBytes(item.info.size) : "-"}</td>
             </tr>
           ))
         ) : (
           <tr>
-            <td>
+            <td className="table--row-header">
               <FileOutlined className="file-icon" />
               <p>{oneFileObject.name}</p>
             </td>
             <td>User</td>
-            <td>{oneFileObject.info.lastModified}</td>
+            <td>{convertUnixToDate(oneFileObject.info.lastModified)}</td>
             <td>{oneFileObject.info.size}</td>
           </tr>
         )

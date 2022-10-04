@@ -1,21 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { IUploadedFile, IUploadedFilesFolder } from "../../utils/interfaces";
 import { TableItem } from "..";
 import "./FilesTable.scss";
+import { Context } from "../../utils";
 
 type Props = { filesObject: IUploadedFilesFolder | IUploadedFile | undefined };
 
-
-// TODO: Сделать dirpath, доработать отображение файлов
-
-function FilesTable({filesObject}: Props) {
+function FilesTable({ filesObject }: Props) {
+  const { pathObjectsArray, changePath } = useContext(Context);
   return (
     <div className="files--workspace">
       <div className="files--dirpath">
-        <p className="files--dirpath--text">My Folder</p>
-        <p className="files--dirpath--delimiter">{">"}</p>
-        <p className="files--dirpath--text">New Folder</p>
+        {pathObjectsArray.map((item, key) => (
+          <div key={key} className="files--dirpath--wrapper">
+            <p className="files--dirpath--text" onClick={() => changePath(key)}>{item.name}</p>
+            <p className="files--dirpath--delimiter">{">"}</p>
+          </div>
+        ))}
       </div>
       <div className="files-table">
         <table>
@@ -27,7 +29,7 @@ function FilesTable({filesObject}: Props) {
               <th scope="col">Размер</th>
             </tr>
           </thead>
-          <TableItem filesObject={filesObject}/>
+          <TableItem filesObject={filesObject} />
         </table>
       </div>
     </div>
