@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { SideBar } from "../../components";
 import { FileManager } from "../../containers";
 import "./Home.scss";
 
-// TODO: Сделать поиск, модальные окна для загрузки нового файла и создания файла на выгрузку
 
 const Home: React.FC = () => {
+  const [uploadedFile, setUploadFile] = useState<FileList>();
+
+  const uploadFile = (file: FileList | null) => {
+    if (file) {
+      setUploadFile(file);
+    }
+  };
+
+  useEffect(() => {
+    console.log("1")
+  }, [uploadedFile])
   return (
     <section className="main">
       <div className="main--content">
-        <SideBar></SideBar>
-        <FileManager></FileManager>
+        <SideBar uploadFile={uploadFile}></SideBar>
+        <FileManager fileFromSideBar={uploadedFile}></FileManager>
       </div>
     </section>
   );

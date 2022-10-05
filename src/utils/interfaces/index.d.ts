@@ -12,3 +12,5 @@ export interface IUploadedFile {
 }
 export type IInnerArray = Array<IUploadedFilesFolder | IUploadedFile>;
 
+export type FileTypes = IUploadedFilesFolder | IUploadedFile;
+

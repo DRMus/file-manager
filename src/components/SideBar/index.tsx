@@ -1,16 +1,25 @@
 import React from "react";
 
-import {SiteIcon} from "../"
+import { SiteIcon } from "../";
 import "./SideBar.scss";
 
-type Props = {};
+type Props = { uploadFile: (file: FileList | null) => void };
 
-function SideBar({}: Props) {
+function SideBar({ uploadFile }: Props) {
   return (
     <div className="sidebar">
       <SiteIcon className="manager--header"></SiteIcon>
       <div className="sidebar--choice-file">
-        <p>Выбрать новый файл</p>
+        <label>
+          Выбрать новый файл
+          <input
+            hidden
+            type="file"
+            directory=""
+            webkitdirectory=""
+            onChange={(info) => uploadFile(info.target.files)}
+          />
+        </label>
       </div>
     </div>
   );

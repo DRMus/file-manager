@@ -3,9 +3,9 @@
 .sidebar {
   height: 100%;
   &--choice-file {
-    margin-top: 60px;
-    cursor: pointer;
-    p {
+    margin-top: 53px;
+    label {
+      cursor: pointer;
       font-weight: 500;
       position: relative;
       width: fit-content;
@@ -13,7 +13,7 @@
       &::after {
         content: "";
         position: absolute;
-        bottom: 0;
+        bottom: -3px;
         left: 0;
         width: 0;
         height: 2px;

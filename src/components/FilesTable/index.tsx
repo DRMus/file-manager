@@ -1,20 +1,29 @@
 import React, { useContext } from "react";
 
-import { IUploadedFile, IUploadedFilesFolder } from "../../utils/interfaces";
-import { TableItem } from "..";
+import { FileTypes } from "../../utils/interfaces";
+import { TableItem, ModalWindow } from "..";
 import "./FilesTable.scss";
 import { Context } from "../../utils";
 
-type Props = { filesObject: IUploadedFilesFolder | IUploadedFile | undefined };
+type Props = { filesObject: FileTypes | undefined };
 
 function FilesTable({ filesObject }: Props) {
-  const { pathObjectsArray, changePath } = useContext(Context);
+  const {
+    changePath,
+    openModalToDownload,
+    downloadFile,
+    pathObjectsArray,
+    previewFile,
+    modalIsActive,
+  } = useContext(Context);
   return (
     <div className="files--workspace">
       <div className="files--dirpath">
         {pathObjectsArray.map((item, key) => (
           <div key={key} className="files--dirpath--wrapper">
-            <p className="files--dirpath--text" onClick={() => changePath(key)}>{item.name}</p>
+            <p className="files--dirpath--text" onClick={() => changePath(key)}>
+              {item.name}
+            </p>
             <p className="files--dirpath--delimiter">{">"}</p>
           </div>
         ))}
@@ -32,6 +41,22 @@ function FilesTable({ filesObject }: Props) {
           <TableItem filesObject={filesObject} />
         </table>
       </div>
+      <div className="files--footer">
+        <button
+          className="files--footer--btn--download"
+          onClick={() => openModalToDownload(true, filesObject as FileTypes)}
+        >
+          Скачать
+        </button>
+      </div>
+      {previewFile && (
+        <ModalWindow
+          file={previewFile}
+          modalIsActive={modalIsActive}
+          openModalToDownload={openModalToDownload}
+          downloadFile={downloadFile}
+        ></ModalWindow>
+      )}
     </div>
   );
 }
