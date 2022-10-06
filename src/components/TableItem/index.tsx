@@ -36,7 +36,7 @@ function TableItem({ filesObject }: Props) {
             </tr>
           ))
         ) : (
-          <tr>
+          <tr onClick={() => openFile(oneFileObject)}>
             <td className="table--row-header">
               <FileOutlined className="file-icon" />
               <p>{oneFileObject.name}</p>

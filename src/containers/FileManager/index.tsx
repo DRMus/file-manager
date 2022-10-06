@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import _ from "lodash";
 
 import { FileManager as FileManagerComponent } from "../../components";
-import { fileListToStructObject, fileTobject } from "../../utils";
-import { IUploadedFilesFolder, FileTypes } from "../../utils/interfaces";
+import { fileListToStructObject, fileTobject, makeSearchArray } from "../../utils";
+import { IUploadedFilesFolder, FileTypes, IUploadedFile } from "../../utils/interfaces";
 import { Context } from "../../utils";
 
 type Props = { fileFromSideBar: FileList | undefined };
@@ -11,8 +11,10 @@ type Props = { fileFromSideBar: FileList | undefined };
 function FileManager({ fileFromSideBar }: Props) {
   const [fileSelected, setFileSelected] = useState(false);
   const [modalIsActive, setModalIsActive] = useState(false);
+  const [searchPanelIsActive, setSearchPanelIsActive] = useState(false)
 
   const [uploadedFile, setUploadedFile] = useState<FileList>();
+  const [searchArray, setSearchArray] = useState<IUploadedFile[]>()
   const [filesObject, setFilesObject] = useState<FileTypes>();
   const [previewFile, setPreviewFile] = useState<FileTypes>();
   const [pathObjectsArray, setPathObjectsArray] = useState<
@@ -71,6 +73,10 @@ function FileManager({ fileFromSideBar }: Props) {
     }
   };
 
+  const openSearchPanel = (toogle: boolean) => {
+    setSearchPanelIsActive(toogle)
+  }
+
   const changePath = (level: number) => {
     const slicedArray = pathObjectsArray.slice(0, level + 1);
     setPathObjectsArray(slicedArray);
@@ -78,20 +84,16 @@ function FileManager({ fileFromSideBar }: Props) {
   };
 
   const searchValue = (text: string) => {
-    let tempArr = []
-    if (uploadedFile) {
-      for (let i = 0; i < uploadedFile?.length; i++) {
-        if (uploadedFile[i].name.indexOf(text) !== 0) {
-          continue;
-        }
-        tempArr.push(uploadedFile[i])
-      }
+    if (uploadedFile && text) {
+      makeSearchArray(uploadedFile, text).then((result) => {
+        setSearchArray(result)
+      })
+    } else {
+      setSearchArray([])
     }
-    console.log(tempArr)
   };
 
   useEffect(() => {
-    console.log(fileFromSideBar, uploadedFile);
     if (fileFromSideBar) {
       setUploadedFile(fileFromSideBar);
       setFileSelected(true);
@@ -123,11 +125,14 @@ function FileManager({ fileFromSideBar }: Props) {
         openModalToDownload,
         downloadFile,
         searchValue,
+        openSearchPanel,
+        searchArray,
         fileSelected,
         filesObject,
         pathObjectsArray,
         modalIsActive,
         previewFile,
+        searchPanelIsActive,
       }}
     >
       <FileManagerComponent />

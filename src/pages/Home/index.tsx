@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { SideBar } from "../../components";
 import { FileManager } from "../../containers";
@@ -14,9 +14,6 @@ const Home: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("1")
-  }, [uploadedFile])
   return (
     <section className="main">
       <div className="main--content">

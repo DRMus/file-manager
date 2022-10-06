@@ -10,11 +10,14 @@ interface IContextProvider {
   changePath: (level: number) => void;
   openModalToDownload: (active: boolean, file?: FileTypes) => void;
   searchValue: (text: string) => void;
+  openSearchPanel: (toggle: boolean) => void;
   filesObject: FileTypes | undefined;
   pathObjectsArray: IUploadedFilesFolder[];
   previewFile: FileTypes | undefined;
+  searchArray: IUploadedFile[] | undefined;
   fileSelected: boolean;
   modalIsActive: boolean;
+  searchPanelIsActive: boolean;
 }
 
 const Context = React.createContext<IContextProvider>({
@@ -24,11 +27,14 @@ const Context = React.createContext<IContextProvider>({
   changePath: () => {},
   openModalToDownload: () => {},
   searchValue: () => {},
+  openSearchPanel: () => {},
   filesObject: undefined,
+  searchArray: [],
   pathObjectsArray: [],
   previewFile: undefined,
   modalIsActive: false,
   fileSelected: false,
+  searchPanelIsActive: false
 });
 
 export default Context;

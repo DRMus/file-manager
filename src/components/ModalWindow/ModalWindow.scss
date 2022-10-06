@@ -2,6 +2,7 @@
 
 .modal {
   &--window {
+    z-index: 100;
     opacity: 0;
     pointer-events: none;
     position: fixed;
@@ -86,7 +87,18 @@
   }
 
   &--active {
+    animation: showPanel 0.3s ease-in-out;
     pointer-events: all;
+    opacity: 1;
+  }
+}
+
+@keyframes showPanel {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
     opacity: 1;
   }
 }
