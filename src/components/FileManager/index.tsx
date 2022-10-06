@@ -5,9 +5,7 @@ import { Context } from "../../utils";
 
 import "./FileManager.scss";
 
-type Props = {};
-
-function FileManager({}: Props) {
+function FileManager() {
   const { uploadFile, fileSelected, filesObject } = useContext(Context);
 
   return (

@@ -46,7 +46,7 @@ function folderSorter(constObject: IInnerArray) {
   return constObject;
 }
 
-export default (files: FileList) => {
+const exp = (files: FileList) => {
   return new Promise<IUploadedFilesFolder>((resolve, reject) => {
     if (files) {
       const uploadedFilesObject: IUploadedFilesFolder = {
@@ -86,3 +86,5 @@ export default (files: FileList) => {
     }
   });
 };
+
+export default exp

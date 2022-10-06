@@ -1,6 +1,8 @@
 import moment from "moment";
 
-export default (unixTime: number) => {
+const convertUnixToDate = (unixTime: number) => {
   const date = new Date(unixTime)
   return moment(date).format("DD.MM.yy");
 }
+
+export default convertUnixToDate
