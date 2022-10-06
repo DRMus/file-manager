@@ -1,3 +1,11 @@
+
+/**
+ * Конвертирует размер из байтов
+ * 
+ * @param bytes 
+ * @param decimals 
+ * @returns string
+ */
 export default function formatBytes(bytes: number, decimals = 2) {
   if (!+bytes) return "0 Байт";
 

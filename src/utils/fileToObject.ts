@@ -1,5 +1,13 @@
 import { IUploadedFile } from "./interfaces";
 
+/**
+ * Преобразует исходный файл в рабочий объект
+ * 
+ * 
+ * @param file 
+ * @returns object
+ */
+
 export default function fileToObject(file: FileList) {
   return {
     name: file[0].name,

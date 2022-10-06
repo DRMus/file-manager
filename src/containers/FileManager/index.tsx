@@ -2,8 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import _ from "lodash";
 
 import { FileManager as FileManagerComponent } from "../../components";
-import { fileListToStructObject, fileTobject, makeSearchArray } from "../../utils";
-import { IUploadedFilesFolder, FileTypes, IUploadedFile } from "../../utils/interfaces";
+import {
+  fileListToStructObject,
+  fileTobject,
+  makeSearchArray,
+} from "../../utils";
+import {
+  IUploadedFilesFolder,
+  FileTypes,
+  IUploadedFile,
+} from "../../utils/interfaces";
 import { Context } from "../../utils";
 
 type Props = { fileFromSideBar: FileList | undefined };
@@ -11,10 +19,10 @@ type Props = { fileFromSideBar: FileList | undefined };
 function FileManager({ fileFromSideBar }: Props) {
   const [fileSelected, setFileSelected] = useState(false);
   const [modalIsActive, setModalIsActive] = useState(false);
-  const [searchPanelIsActive, setSearchPanelIsActive] = useState(false)
+  const [searchPanelIsActive, setSearchPanelIsActive] = useState(false);
 
   const [uploadedFile, setUploadedFile] = useState<FileList>();
-  const [searchArray, setSearchArray] = useState<IUploadedFile[]>()
+  const [searchArray, setSearchArray] = useState<IUploadedFile[]>();
   const [filesObject, setFilesObject] = useState<FileTypes>();
   const [previewFile, setPreviewFile] = useState<FileTypes>();
   const [pathObjectsArray, setPathObjectsArray] = useState<
@@ -23,12 +31,23 @@ function FileManager({ fileFromSideBar }: Props) {
 
   const defaultFolder = useRef<FileTypes>();
 
+  /**
+   * Загрузка файла для последующей обработки
+   *
+   * @param files
+   */
   const uploadFile = (files: FileList | null) => {
     if (files && !_.isEqual(files, uploadedFile)) {
       setUploadedFile(files);
       setFileSelected(true);
     }
   };
+
+  /**
+   * Выгрузка файла в JSON формате
+   *
+   * @param file
+   */
 
   const downloadFile = (file: FileTypes | File) => {
     const data = new Blob(
@@ -56,6 +75,11 @@ function FileManager({ fileFromSideBar }: Props) {
     anchor.remove();
   };
 
+  /**
+   * Открытие файла. Если это директория, то переходим в нее, если это файл - открываем модальное окно для его последующей выгрузки
+   *
+   * @param file
+   */
   const openFile = (file: FileTypes) => {
     if (file.type === "folder") {
       setPathObjectsArray([...pathObjectsArray, file]);
@@ -66,6 +90,12 @@ function FileManager({ fileFromSideBar }: Props) {
     }
   };
 
+  /**
+   * Открытие модального окна с предварительным просмотром файла в JSON формате
+   * 
+   * @param active 
+   * @param file 
+   */
   const openModalToDownload = (active: boolean, file?: FileTypes) => {
     setModalIsActive(active);
     if (file) {
@@ -73,23 +103,42 @@ function FileManager({ fileFromSideBar }: Props) {
     }
   };
 
+  /**
+   * Свитч для открытия панели поиска
+   * 
+   * @param toogle 
+   */
   const openSearchPanel = (toogle: boolean) => {
-    setSearchPanelIsActive(toogle)
-  }
+    setSearchPanelIsActive(toogle);
+  };
 
+
+  /**
+   * Изменение действующей директории для отображение
+   * Реализовано при помощи массива, в котором происходит удаление указанного количества элементов,
+   * который зависит от выбранной ячейки
+   * 
+   * @param level 
+   */
   const changePath = (level: number) => {
     const slicedArray = pathObjectsArray.slice(0, level + 1);
     setPathObjectsArray(slicedArray);
     setFilesObject(slicedArray[slicedArray.length - 1]);
   };
 
+  /**
+   * Функция поиска элементов среди дефолтного массива файлов
+   * 
+   * @param text 
+   */
+
   const searchValue = (text: string) => {
     if (uploadedFile && text) {
       makeSearchArray(uploadedFile, text).then((result) => {
-        setSearchArray(result)
-      })
+        setSearchArray(result);
+      });
     } else {
-      setSearchArray([])
+      setSearchArray([]);
     }
   };
 

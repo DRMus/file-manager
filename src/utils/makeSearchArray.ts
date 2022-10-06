@@ -1,5 +1,12 @@
 import { IUploadedFile } from "./interfaces";
 
+/**
+ * Производит поиск среди исходного массива файлов
+ * 
+ * @param uploadedFile 
+ * @param text 
+ * @returns Array
+ */
 const makeSearchArray = (uploadedFile: FileList, text: string) => {
   return new Promise<IUploadedFile[]>((resolve, reject) => {
     let tempArr: IUploadedFile[] = [];

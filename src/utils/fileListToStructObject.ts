@@ -1,6 +1,20 @@
 import { IUploadedFilesFolder, IUploadedFile, IInnerArray } from "./interfaces";
 import _ from "lodash";
 
+/**
+ * Преобразует поступивший файл в удобный для работы объект в котором:
+ * {name: string [имя файла],
+ * type: "folder" | "file" [тип файла],
+ * priority: number [приоритет (используется для отображения директорий выше файлов)],
+ * info | inner: {} [содержание файла (директории)]}
+ *
+ *
+ * @param constObject
+ * @param file
+ * @param pathArray
+ * @param iterator
+ */
+
 function fileListToStructObject(
   constObject: IInnerArray,
   file: File,
@@ -35,6 +49,13 @@ function fileListToStructObject(
   }
 }
 
+/**
+ * Сортирует массив по приоритету
+ *
+ * @param constObject
+ * @returns object
+ */
+
 function folderSorter(constObject: IInnerArray) {
   constObject = _.orderBy(constObject, ["priority"], ["asc"]);
   constObject.map((item) => {
@@ -45,6 +66,13 @@ function folderSorter(constObject: IInnerArray) {
   });
   return constObject;
 }
+
+/**
+ * Создает удобный для работы объект (см. внутренний fileListToStructObject())
+ *
+ * @param files
+ * @returns Promise
+ */
 
 const exp = (files: FileList) => {
   return new Promise<IUploadedFilesFolder>((resolve, reject) => {
@@ -79,7 +107,7 @@ const exp = (files: FileList) => {
           );
         }
       }
-      uploadedFilesObject.inner = folderSorter(uploadedFilesObject.inner)
+      uploadedFilesObject.inner = folderSorter(uploadedFilesObject.inner);
       resolve(uploadedFilesObject);
     } else {
       reject("Empty FileList");
@@ -87,4 +115,4 @@ const exp = (files: FileList) => {
   });
 };
 
-export default exp
+export default exp;
